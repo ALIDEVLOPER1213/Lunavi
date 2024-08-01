@@ -9,13 +9,16 @@ class Category(models.Model):
 
 
 class Clothes(models.Model):
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=120, null=True, blank=True)
+    image = models.ImageField(upload_to='image foto')
+    images = models.ImageField(upload_to='images foto')
     description = models.TextField()
-    image = models.ImageField(upload_to='product_image')
-    price = models.IntegerField(default=0)
+    price = models.IntegerField(default=100)
+    color = models.CharField(max_length=120)
+    country = models.CharField(max_length=120, null=True, blank=True)
+    size = models.IntegerField(default=1)
+    category = models.ForeignKey(Category, max_length=120, null=True, blank=True, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_created=True)
 
     def __str__(self):
-        return f"{self.title}-{self.price}"
+        return f"{self.title}-{self.price, self.image}"
